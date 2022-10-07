@@ -2,3 +2,19 @@
   margin: 3em;
   display: inline-block;
 }
+
+.error {
+  border: red 2px solid;
+}
+
+.error-message {
+  color: red;
+}
+
+.activeFilter {
+  background-color: lightseagreen;
+}
+
+.isDone {
+  opacity: 0.5;
+}

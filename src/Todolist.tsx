@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, ChangeEventHandler, useState} from "react";
 import styles from './Todolist.module.css'
 import {FilterValueType} from "./App";
 
@@ -8,6 +8,8 @@ type TodoListType = {
     removeTask: (taskID: string) => void,
     changeFilter: (value: FilterValueType) => void,
     addTask: (title: string) => void,
+    changeStatus: (id: string, isDone: boolean) => void
+    filter:string,
 }
 
 type TasksArrayType = {
@@ -19,14 +21,21 @@ type TasksArrayType = {
 
 export const Todolist = (props: TodoListType) => {
 
+
     const tasksMap = props.tasks.map(el => {
 
         const onClickHandler = () => props.removeTask(el.id)
 
+        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            let newIsDoneValue = e.currentTarget.checked
+            props.changeStatus(el.id, newIsDoneValue)
+
+        }
+
         return (
-            <li key={el.id}>
+            <li key={el.id} className={el.isDone ? 'isDone' : ''}>
                 <button onClick={onClickHandler}>x</button>
-                <input type="checkbox" checked={el.isDone}/>
+                <input type="checkbox" checked={el.isDone} onChange={onChangeHandler}/>
                 <span>{el.title}</span>
             </li>)
     })
@@ -34,12 +43,19 @@ export const Todolist = (props: TodoListType) => {
 
     let [title, setTitle] = useState('')
 
+    let [error,setError] = useState<string|null>(null)
+
     const onClickAddTaskHandler = () => {
-        props.addTask(title)
-        setTitle('')
+        if(title.trim() !== '') {
+            props.addTask(title)
+            setTitle('')
+        } else {
+            setError('You need to have letters in task')
+        }
     }
 
     const onKeyUpInputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
+        setError(null)
         if (event.key === 'Enter') {
             props.addTask(title)
             setTitle('')
@@ -68,14 +84,21 @@ export const Todolist = (props: TodoListType) => {
             <div>
                 <input value={title} onChange={onChangeInputHandler} onKeyUp={onKeyUpInputHandler}/>
                 <button onClick={onClickAddTaskHandler}>+</button>
+                {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
             <ul>
                 {tasksMap}
             </ul>
             <div>
-                <button onClick={onAllClickHandler}>All</button>
-                <button onClick={onActiveClickHandler}>Active</button>
-                <button onClick={onCompletedClickHandler}>Completed</button>
+                <button
+                    className={props.filter === 'all' ? 'activeFilter' : ''}
+                    onClick={onAllClickHandler}>All</button>
+                <button
+                    className={props.filter === 'active' ? 'activeFilter' : ''}
+                    onClick={onActiveClickHandler}>Active</button>
+                <button
+                    className={props.filter === 'completed' ? 'activeFilter' : ''}
+                    onClick={onCompletedClickHandler}>Completed</button>
             </div>
         </div>
     )
