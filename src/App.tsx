@@ -41,11 +41,16 @@ function App() {
     }
 
     const changeStatus = (id: string, isDone: boolean) => {
-        let task = tasks.find(t => t.id === id);
-        if (task) {
-            task.isDone = isDone
-            setTasks([...tasks])
-        }
+
+        // 1st variation
+        setTasks(tasks.map( el => el.id===id ? {...el,isDone:isDone} : el))
+
+        //2nd variation
+        // let task = tasks.find(t => t.id === id);
+        // if (task) {
+        //     task.isDone = isDone
+        //     setTasks([...tasks])
+        // }
     }
 
 

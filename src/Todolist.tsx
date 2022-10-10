@@ -9,7 +9,7 @@ type TodoListType = {
     changeFilter: (value: FilterValueType) => void,
     addTask: (title: string) => void,
     changeStatus: (id: string, isDone: boolean) => void
-    filter:string,
+    filter: string,
 }
 
 type TasksArrayType = {
@@ -43,10 +43,10 @@ export const Todolist = (props: TodoListType) => {
 
     let [title, setTitle] = useState('')
 
-    let [error,setError] = useState<string|null>(null)
+    let [error, setError] = useState<string | null>(null)
 
     const onClickAddTaskHandler = () => {
-        if(title.trim() !== '') {
+        if (title.trim() !== '') {
             props.addTask(title)
             setTitle('')
         } else {
@@ -82,7 +82,7 @@ export const Todolist = (props: TodoListType) => {
         <div className={styles.todoBlock}>
             <h3>{props.title}</h3>
             <div>
-                <input value={title} onChange={onChangeInputHandler} onKeyUp={onKeyUpInputHandler}/>
+                <input className={error ? styles.error : ''} value={title} onChange={onChangeInputHandler} onKeyUp={onKeyUpInputHandler}/>
                 <button onClick={onClickAddTaskHandler}>+</button>
                 {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
@@ -92,13 +92,16 @@ export const Todolist = (props: TodoListType) => {
             <div>
                 <button
                     className={props.filter === 'all' ? 'activeFilter' : ''}
-                    onClick={onAllClickHandler}>All</button>
+                    onClick={onAllClickHandler}>All
+                </button>
                 <button
                     className={props.filter === 'active' ? 'activeFilter' : ''}
-                    onClick={onActiveClickHandler}>Active</button>
+                    onClick={onActiveClickHandler}>Active
+                </button>
                 <button
                     className={props.filter === 'completed' ? 'activeFilter' : ''}
-                    onClick={onCompletedClickHandler}>Completed</button>
+                    onClick={onCompletedClickHandler}>Completed
+                </button>
             </div>
         </div>
     )
