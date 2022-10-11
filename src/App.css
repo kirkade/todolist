@@ -11,10 +11,10 @@
   color: red;
 }
 
-.activeFilter {
-  background-color: lightseagreen;
-}
-
 .isDone {
   opacity: 0.5;
+}
+
+.activeFilter {
+  background-color: lightseagreen;
 }
