@@ -18,3 +18,7 @@
 .activeFilter {
   background-color: lightseagreen;
 }
+
+.addTodolist {
+  margin-bottom: 50px;
+}

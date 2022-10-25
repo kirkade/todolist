@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styles from "../Todolist.module.css";
+import {Button} from "@mui/material";
 
 type AddItemFormPropsType = {
     addItem: (title:string) => void
@@ -45,10 +46,7 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
                     onKeyUp={onKeyUpInputHandler}
                 />
 
-                <button
-                    onClick={onClickAddItemHandler}>
-                    +
-                </button>
+                <Button variant="contained" color={'primary'} size={"small"} onClick={onClickAddItemHandler}>+</Button>
                 {error && <div className={styles.errorMessage}>{error}</div>}
             </div>
         </div>

@@ -3,6 +3,8 @@ import './App.css'
 import {TaskType, Todolist} from "./Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
+import {Typography} from "@mui/material";
+
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
@@ -80,7 +82,6 @@ function App() {
             [todolistId]: tasks[todolistId].map(t=>t.id === id
                 ? {...t,title:title}
                 : t)
-
         })
     }
     //U:
@@ -145,7 +146,13 @@ function App() {
     //GUI
     return (
         <div className="App">
-            <AddItemForm addItem={addTodolist} />
+            <div className={'addTodolist'}>
+                <Typography variant={"h5"} align={'left'} marginLeft={'15px'} fontWeight={'bold'} color={'primary'}>
+                    <span>Add Todolist</span>
+                </Typography>
+                <AddItemForm addItem={addTodolist} />
+            </div>
+
             {todolistComponents}
         </div>
     )
