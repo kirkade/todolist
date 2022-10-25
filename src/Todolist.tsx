@@ -1,10 +1,10 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import styles from './Todolist.module.css'
 import {FilterValueType} from "./App";
-import {Checkbox} from "./components/Checkbox";
+
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
-import {Button, ButtonGroup, IconButton, List, ListItem, Typography} from "@mui/material";
+import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import {Delete, HighlightOff} from "@mui/icons-material";
 
 type TodoListType = {
@@ -29,7 +29,6 @@ export type TaskType = {
 
 export const Todolist = (props: TodoListType) => {
 
-
     const onChangeHandler = (elId: string, isDone: boolean, todolistId: string) => {
         props.changeStatus(elId, isDone, todolistId)
     }
@@ -47,13 +46,17 @@ export const Todolist = (props: TodoListType) => {
                 className={el.isDone ? 'isDone' : ''}
                 style={{padding: '0px', justifyContent: 'space-between'}}
             >
-                <Checkbox checked={el.isDone} callback={(isDone) => onChangeHandler(el.id, isDone, props.todolistId)}/>
+                {/*<CheckboxBody checked={el.isDone} callback={(isDone) => onChangeHandler(el.id, isDone, props.todolistId)}/>*/}
+                <Checkbox
+                    checked={el.isDone}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeHandler(el.id, event.currentTarget.checked, props.todolistId)}
+                />
+
 
                 <EditableSpan title={el.title} changeTitle={changeTaskTitle}/>
                 <IconButton size={'small'} onClick={onClickHandler}><HighlightOff/></IconButton>
             </ListItem>)
     })
-
 
     const onAllClickHandler = () => {
         props.changeTodolistFilter('all', props.todolistId)
@@ -81,7 +84,8 @@ export const Todolist = (props: TodoListType) => {
 
     return (
         <div className={styles.todoBlock}>
-            <Typography variant={"h5"} align={'center'} fontWeight={'bold'} color={'primary'}>
+            <Typography variant={"h5"} align={'center'} fontWeight={'bold'} color={'primary'}
+                        style={{marginBottom: '20px'}}>
 
                 <EditableSpan title={props.title} changeTitle={changeTodolistTitle}/>
                 <IconButton size={'small'} onClick={removeTodolist}><Delete/></IconButton>
@@ -95,7 +99,7 @@ export const Todolist = (props: TodoListType) => {
             </List>
 
             <div>
-                <ButtonGroup disableElevation variant="contained" size={"small"}>
+                <ButtonGroup disableElevation variant="contained" size={"small"} fullWidth>
                     <Button
                         color={props.filter === 'all' ? 'secondary' : 'primary'}
                         onClick={onAllClickHandler}>All

@@ -1,6 +1,7 @@
 .todoBlock {
-    display: inline-block;
-    margin-right: 50px;
+    /*width: 300px;*/
+    /*margin-right: 50px;*/
+    /*margin-top: 50px;*/
 }
 
 .errorMessage {

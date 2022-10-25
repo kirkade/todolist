@@ -1,6 +1,6 @@
 .App {
-  margin: 3em;
-  display: inline-block;
+  /*margin: 3em;*/
+  /*display: inline-block;*/
 }
 
 .error {
@@ -22,3 +22,5 @@
 .addTodolist {
   margin-bottom: 50px;
 }
+
+

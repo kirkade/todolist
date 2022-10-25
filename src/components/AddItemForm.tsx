@@ -1,30 +1,31 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import styles from "../Todolist.module.css";
-import {Button} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
+import {AddBoxOutlined} from "@mui/icons-material";
 
 type AddItemFormPropsType = {
-    addItem: (title:string) => void
+    addItem: (title: string) => void
 }
 
-export const AddItemForm = (props:AddItemFormPropsType) => {
+export const AddItemForm = (props: AddItemFormPropsType) => {
 
     let [title, setTitle] = useState('')
-    let [error, setError] = useState<string | null>(null)
+    let [error, setError] = useState<boolean | undefined | string>(undefined)
     const trimmedTitle = title.trim()
 
-    const onChangeInputHandler = (event: React.FormEvent<HTMLInputElement>) => {
-        error && setError('You need to have letters in task')
+    const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        error && setError(true)
         setTitle(event.currentTarget.value)
     }
     const onKeyUpInputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
-        setError(null)
+        setError(undefined)
         if (trimmedTitle !== '') {
             if (event.key === 'Enter') {
                 props.addItem(trimmedTitle)
                 setTitle('')
             }
         } else {
-            setError('You need to have letters in task')
+            setError(true)
         }
     }
     const onClickAddItemHandler = () => {
@@ -32,23 +33,26 @@ export const AddItemForm = (props:AddItemFormPropsType) => {
             props.addItem(trimmedTitle)
             setTitle('')
         } else {
-            setError('You need to have letters in task')
+            setError(true)
         }
     }
 
     return (
         <div>
-            <div>
-                <input
-                    className={error ? styles.error : ''}
-                    value={title}
-                    onChange={onChangeInputHandler}
-                    onKeyUp={onKeyUpInputHandler}
-                />
+            <TextField
+                size={'small'}
+                variant={'outlined'}
+                value={title}
+                onChange={onChangeInputHandler}
+                onKeyUp={onKeyUpInputHandler}
+                label={'Title'}
+                // error={'error'}
+            />
 
-                <Button variant="contained" color={'primary'} size={"small"} onClick={onClickAddItemHandler}>+</Button>
-                {error && <div className={styles.errorMessage}>{error}</div>}
-            </div>
+            <IconButton onClick={onClickAddItemHandler}>
+                <AddBoxOutlined color={'primary'}/>
+            </IconButton>
+            {error && <div className={styles.errorMessage}>{error}</div>}
         </div>
     );
 };

@@ -5,7 +5,7 @@ type PropsType = {
     callback:(isDone:boolean)=>void
 }
 
-export const Checkbox = (props:PropsType) => {
+export const CheckboxBody = (props:PropsType) => {
 
     const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) => {
         props.callback(event.currentTarget.checked)
