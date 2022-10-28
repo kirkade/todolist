@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import styles from "../Todolist.module.css";
+import styles from "../Todolist/Todolist.module.css";
 import {IconButton, TextField} from "@mui/material";
 import {AddBoxOutlined} from "@mui/icons-material";
 

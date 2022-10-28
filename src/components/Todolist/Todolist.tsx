@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from "react";
 import styles from './Todolist.module.css'
-import {FilterValueType} from "./App";
+import {FilterValueType} from "../../App";
 
-import {AddItemForm} from "./components/AddItemForm";
-import {EditableSpan} from "./components/EditableSpan";
+import {AddItemForm} from "../AddItemForm/AddItemForm";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import {Delete, HighlightOff} from "@mui/icons-material";
 
