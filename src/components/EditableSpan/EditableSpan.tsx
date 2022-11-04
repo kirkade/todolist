@@ -2,7 +2,14 @@ import React, {ChangeEvent, useState} from 'react';
 import {TextField} from "@mui/material";
 
 export type EditableSpanPropsType = {
+    /**
+     * the text of span
+     */
     title:string
+    /**
+     *
+     * @param newTitle is the new text of span
+     */
     changeTitle:(newTitle:string)=>void
 }
 

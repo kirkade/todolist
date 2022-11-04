@@ -7,7 +7,8 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import {Delete, HighlightOff} from "@mui/icons-material";
 
-type TodoListType = {
+export type TodoListType = {
+    id: string;
     todolistId: string,
     title: string,
     tasks: Array<TaskType>,

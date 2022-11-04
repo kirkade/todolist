@@ -9,7 +9,7 @@ import {Menu} from "@mui/icons-material";
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
-type TodoListType = {
+export type TodoListsType = {
     id: string,
     title: string,
     filter: FilterValueType,
@@ -19,11 +19,13 @@ type TasksStateType = {
     [todolistId: string]: Array<TaskType>
 }
 
+
+
 function App() {
     //BLL:
     const todolistId_1 = v1()
     const todolistId_2 = v1()
-    const [todolists, setTodolists] = useState<Array<TodoListType>>([
+    const [todolists, setTodolists] = useState<Array<TodoListsType>>([
         {id: todolistId_1, title: 'What to learn', filter: 'all'},
         {id: todolistId_2, title: 'What to buy', filter: 'all'}
     ])
@@ -89,6 +91,7 @@ function App() {
                 : t)
         })
     }
+
     //U:
     const changeTodolistFilter = (filter: FilterValueType, todolistId: string) => {
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: filter} : tl))
@@ -118,7 +121,7 @@ function App() {
     //C:
     const addTodolist = (title: string) => {
         let newTodolistId: string = v1()
-        let newTodolist: TodoListType = {
+        let newTodolist: TodoListsType = {
             id: newTodolistId,
             title: title,
             filter: 'all'
@@ -146,6 +149,7 @@ function App() {
                         filter={tl.filter}
                         todolistId={tl.id}
                         key={tl.id}
+                        id={tl.id}
                     />
                 </Paper>
             </Grid>

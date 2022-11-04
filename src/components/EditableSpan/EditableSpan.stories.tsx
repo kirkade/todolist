@@ -5,7 +5,7 @@ import {action} from "@storybook/addon-actions";
 
 
 export default {
-    title: 'Editable Span',
+    title: 'components/Editable Span',
     component: EditableSpan,
 } as ComponentMeta<typeof EditableSpan>;
 
