@@ -85,3 +85,4 @@ test('correct title of todolist should be changed', () => {
     expect(endState[1].title).toBe(newTitle)
 
 })
+
