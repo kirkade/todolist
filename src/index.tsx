@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+
 import * as serviceWorker from './serviceWorker';
 import {createTheme, ThemeProvider} from "@mui/material";
+import AppWithReducers from "./AppWithReducers";
 
 
 const theme = createTheme({
@@ -20,7 +21,7 @@ const theme = createTheme({
 ReactDOM.render(
 
     <ThemeProvider theme={theme}>
-        <App/>
+        <AppWithReducers/>
     </ThemeProvider>
 
     , document.getElementById('root'));

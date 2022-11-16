@@ -4,16 +4,16 @@ import {addTodolistAT, RemoveTodolistAT} from "./todolists-reducer";
 
 type RemoveTasksAT = ReturnType<typeof RemoveTasksAC>
 
-type addTaskAT = ReturnType<typeof addTasksAC>
+type addTaskAT = ReturnType<typeof addTaskAC>
 
 type changeStatusAT = ReturnType<typeof changeStatusAC>
 
 type changeTitleAT = ReturnType<typeof changeTitleAC>
 
 
-type ActionType = RemoveTasksAT | addTaskAT | changeStatusAT | changeTitleAT | addTodolistAT | RemoveTodolistAT
+type TaskActionType = RemoveTasksAT | addTaskAT | changeStatusAT | changeTitleAT | addTodolistAT | RemoveTodolistAT
 
-export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType, action: TaskActionType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(task => task.id !== action.taskId)}
@@ -58,7 +58,7 @@ export const RemoveTasksAC = (taskId: string, todolistId: string) => {
     return {type: "REMOVE TASK", taskId, todolistId} as const
 }
 
-export const addTasksAC = (title: string, todolistId: string) => {
+export const addTaskAC = (title: string, todolistId: string) => {
     return {type: 'ADD TASK', title, todolistId} as const
 }
 
