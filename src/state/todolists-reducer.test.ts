@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {FilterValueType, TodoListsType} from "../App";
+import {FilterValueType, TodoListType} from "../App";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
@@ -11,7 +11,7 @@ import {
 //DATA
 let todolistId1: string
 let todolistId2: string
-let startState: Array<TodoListsType>
+let startState: Array<TodoListType>
 
 beforeEach(() => {
     //DATA

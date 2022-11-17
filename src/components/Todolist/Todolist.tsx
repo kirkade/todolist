@@ -7,7 +7,7 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import {Delete, HighlightOff} from "@mui/icons-material";
 
-export type TodoListType = {
+export type TodolistPropsType = {
     id: string;
     todolistId: string,
     title: string,
@@ -28,9 +28,10 @@ export type TaskType = {
     isDone: boolean,
 }
 
-export const Todolist = (props: TodoListType) => {
+export const Todolist = (props: TodolistPropsType) => {
 
     const onChangeHandler = (elId: string, isDone: boolean, todolistId: string) => {
+
         props.changeStatus(elId, isDone, todolistId)
     }
 
@@ -47,7 +48,6 @@ export const Todolist = (props: TodoListType) => {
                 className={el.isDone ? 'isDone' : ''}
                 style={{padding: '0px', justifyContent: 'space-between'}}
             >
-                {/*<CheckboxBody checked={el.isDone} callback={(isDone) => onChangeHandler(el.id, isDone, props.todolistId)}/>*/}
                 <Checkbox
                     checked={el.isDone}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => onChangeHandler(el.id, event.currentTarget.checked, props.todolistId)}
