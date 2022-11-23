@@ -1,15 +1,16 @@
-import React, {ChangeEvent, FC} from "react";
+import React, {FC, memo, useCallback} from "react";
 import styles from './Todolist.module.css'
 import {TodoListType} from "../../App";
 
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
-import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
-import {Delete, HighlightOff} from "@mui/icons-material";
+import {Button, ButtonGroup, IconButton, List,  Typography} from "@mui/material";
+import {Delete,} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";
-import {addTaskAC, changeStatusAC, changeTitleAC, RemoveTasksAC} from "../../state/tasks-reducer";
+import {addTaskAC,} from "../../state/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, RemoveTodolistAC} from "../../state/todolists-reducer";
+import {Task} from "../Task";
 
 export type TodoListTypeWithReduxPropsType = {
     todolist: TodoListType
@@ -21,8 +22,9 @@ export type TaskType = {
     isDone: boolean,
 }
 
-export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}) => {
+export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = memo(({todolist}) => {
     const {id, title, filter} = todolist
+    console.log('Todolist')
 
     let tasks = useSelector<AppRootStateType, Array<TaskType>>((state) => state.tasks[id])
     const dispatch = useDispatch()
@@ -35,39 +37,29 @@ export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}
         tasks = tasks.filter(t => t.isDone)
     }
 
-    const tasksMap = tasks.map(task => {
+    const tasksMap = tasks.map(task => <Task task={task} key={task.id} todolistID={id}/>
+    )
 
-        const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-            let newIsDone = event.currentTarget.checked
-            dispatch(changeStatusAC(task.id, newIsDone, id))
-        }
-        const onClickHandler = () => dispatch(RemoveTasksAC(task.id, id))
-        const changeTaskTitle = (title: string) => {dispatch(changeTitleAC(task.id, title, id))}
+    const onAllClickHandler = () => {
+        dispatch(changeTodolistFilterAC('all', id))
+    }
+    const onActiveClickHandler = () => {
+        dispatch(changeTodolistFilterAC('active', id))
+    }
+    const onCompletedClickHandler = () => {
+        dispatch(changeTodolistFilterAC('completed', id))
+    }
 
-        return (
-            <ListItem
-                key={task.id}
-                className={task.isDone ? 'isDone' : ''}
-                style={{padding: '0px', justifyContent: 'space-between'}}
-            >
-                <Checkbox
-                    checked={task.isDone}
-                    onChange={onChangeHandler}
-                />
+    const removeTodolist = () => {
+        dispatch(RemoveTodolistAC(id))
+    }
 
-
-                <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
-                <IconButton size={'small'} onClick={onClickHandler}><HighlightOff/></IconButton>
-            </ListItem>)
-    })
-
-    const onAllClickHandler = () => {dispatch(changeTodolistFilterAC('all', id))}
-    const onActiveClickHandler = () => {dispatch(changeTodolistFilterAC('active', id))}
-    const onCompletedClickHandler = () => {dispatch(changeTodolistFilterAC('completed', id))}
-
-    const removeTodolist = () => {dispatch(RemoveTodolistAC(id))}
-    const addTask = (title: string) => {dispatch(addTaskAC(title, id))}
-    const changeTodolistTitle = (title: string) => {dispatch(changeTodolistTitleAC(title, id))}
+    const addTask = useCallback((title: string) => {
+        dispatch(addTaskAC(title, id))
+    }, [title, id])
+    const changeTodolistTitle = (title: string) => {
+        dispatch(changeTodolistTitleAC(title, id))
+    }
 
     return (
         <div className={styles.todoBlock}>
@@ -104,4 +96,4 @@ export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}
         </div>
     )
 
-}
+})

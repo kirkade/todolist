@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react';
 import styles from "../Todolist/Todolist.module.css";
 import {IconButton, TextField} from "@mui/material";
 import {AddBoxOutlined} from "@mui/icons-material";
@@ -7,8 +7,8 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: AddItemFormPropsType) => {
-
+export const AddItemForm = memo((props: AddItemFormPropsType) => {
+    console.log("ADD ITEM FORM")
     let [title, setTitle] = useState('')
     let [error, setError] = useState<boolean | undefined | string>(undefined)
     const trimmedTitle = title.trim()
@@ -18,7 +18,7 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
         setTitle(event.currentTarget.value)
     }
     const onKeyUpInputHandler = (event: React.KeyboardEvent<HTMLElement>) => {
-        setError(undefined)
+        if (error) setError(undefined)
         if (trimmedTitle !== '') {
             if (event.key === 'Enter') {
                 props.addItem(trimmedTitle)
@@ -55,5 +55,5 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
             {error && <div className={styles.errorMessage}>{error}</div>}
         </div>
     );
-};
+});
 
