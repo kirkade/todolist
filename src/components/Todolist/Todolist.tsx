@@ -54,7 +54,7 @@ export const Todolist = (props: TodolistPropsType) => {
                 />
 
 
-                <EditableSpan title={el.title} changeTitle={changeTaskTitle}/>
+                <EditableSpan title={el.title} onChange={changeTaskTitle}/>
                 <IconButton size={'small'} onClick={onClickHandler}><HighlightOff/></IconButton>
             </ListItem>)
     })
@@ -88,7 +88,7 @@ export const Todolist = (props: TodolistPropsType) => {
             <Typography variant={"h5"} align={'center'} fontWeight={'bold'} color={'primary'}
                         style={{marginBottom: '20px'}}>
 
-                <EditableSpan title={props.title} changeTitle={changeTodolistTitle}/>
+                <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
                 <IconButton size={'small'} onClick={removeTodolist}><Delete/></IconButton>
 
             </Typography>

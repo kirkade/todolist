@@ -10,7 +10,7 @@ export type EditableSpanPropsType = {
      *
      * @param newTitle is the new text of span
      */
-    changeTitle:(newTitle:string)=>void
+    onChange:(newTitle:string)=>void
 }
 
 export const EditableSpan = (props:EditableSpanPropsType) => {
@@ -22,12 +22,12 @@ export const EditableSpan = (props:EditableSpanPropsType) => {
     }
     const offEditMode = ( ) => {
         setIsEditMode(false)
-        props.changeTitle(title)
+        props.onChange(title)
     }
     const offEditEnterMode = (event: React.KeyboardEvent<HTMLElement>) => {
         if (event.key === 'Enter'){
             setIsEditMode(false)
-            props.changeTitle(title)
+            props.onChange(title)
         }
     }
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {

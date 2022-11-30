@@ -38,6 +38,7 @@ export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}
     const tasksMap = tasks.map(task => {
 
         const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+
             let newIsDone = event.currentTarget.checked
             dispatch(changeStatusAC(task.id, newIsDone, id))
         }
@@ -56,7 +57,7 @@ export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}
                 />
 
 
-                <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
+                <EditableSpan title={task.title} onChange={changeTaskTitle}/>
                 <IconButton size={'small'} onClick={onClickHandler}><HighlightOff/></IconButton>
             </ListItem>)
     })
@@ -74,7 +75,7 @@ export const TodolistWithRedux: FC<TodoListTypeWithReduxPropsType> = ({todolist}
             <Typography variant={"h5"} align={'center'} fontWeight={'bold'} color={'primary'}
                         style={{marginBottom: '20px'}}>
 
-                <EditableSpan title={title} changeTitle={changeTodolistTitle}/>
+                <EditableSpan title={title} onChange={changeTodolistTitle}/>
                 <IconButton size={'small'} onClick={removeTodolist}><Delete/></IconButton>
 
             </Typography>

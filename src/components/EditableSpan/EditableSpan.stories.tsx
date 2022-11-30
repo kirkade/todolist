@@ -7,19 +7,18 @@ import {action} from "@storybook/addon-actions";
 export default {
     title: 'components/Editable Span',
     component: EditableSpan,
+    argTypes: {
+        onChange: {
+            description: 'Button inside form clicked'
+        }
+    }
 } as ComponentMeta<typeof EditableSpan>;
 
 
 const Template: ComponentStory<typeof EditableSpan> = (args) => <EditableSpan {...args}/>
 
-const onChangeTitle = action('text was changed')
-export const Primary = Template.bind({})
-Primary.args = {
+export const EditableSpanExample = Template.bind({})
+EditableSpanExample.args = {
     title: 'Some title',
-    changeTitle: onChangeTitle
-}
-export const Secondary = Template.bind({})
-Secondary.args = {
-    title: 'Some title Secondary',
-    changeTitle: onChangeTitle
+    onChange: action('text was changed')
 }
