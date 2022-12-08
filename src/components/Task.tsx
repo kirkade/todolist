@@ -36,7 +36,7 @@ export const Task = memo(({task, todolistID}: TaskPropsType) => {
             />
 
 
-            <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
+            <EditableSpan title={task.title} onChange={()=>{}}/>
             <IconButton size={'small'} onClick={onClickHandler}><HighlightOff/></IconButton>
         </ListItem>)
 },)

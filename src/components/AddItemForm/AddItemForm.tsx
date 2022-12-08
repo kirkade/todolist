@@ -8,7 +8,6 @@ type AddItemFormPropsType = {
 }
 
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
-    console.log("ADD ITEM FORM")
     let [title, setTitle] = useState('')
     let [error, setError] = useState<boolean | undefined | string>(undefined)
     const trimmedTitle = title.trim()

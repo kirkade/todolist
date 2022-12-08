@@ -14,7 +14,7 @@ export type EditableSpanPropsType = {
 }
 
 export const EditableSpan = memo((props:EditableSpanPropsType) => {
-    console.log('editable span')
+
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState(props.title)
     const onEditMode = ( ) => {
