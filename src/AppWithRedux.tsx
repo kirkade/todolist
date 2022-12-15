@@ -7,16 +7,16 @@ import {Menu} from "@mui/icons-material";
 import {addTodolistAC} from "./state/todolists-reducer";
 
 import {TodoListType} from "./App";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
+import { useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType, useAppSelector} from "./state/store";
 import {TodolistWithRedux} from "./components/Todolist/TodolistWithRedux";
 import {todolistsSelector} from "./state/selectors";
 
 
 function AppWithRedux() {
 
-    const todolists = useSelector<AppRootStateType, Array<TodoListType>>(todolistsSelector)
-    const dispatch = useDispatch()
+    const todolists = useAppSelector<Array<TodoListType>>(todolistsSelector)
+    const dispatch = AppDispatch()
 
     //C:
     const addTodolist = (title: string) => {

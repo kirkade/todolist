@@ -1,6 +1,8 @@
 import { tasksReducer } from './tasks-reducer'
 import { todolistsReducer } from './todolists-reducer'
-import {combineReducers, compose, createStore} from 'redux'
+import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from 'redux'
+import thunk, {ThunkDispatch} from "redux-thunk";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 declare global {
@@ -10,19 +12,21 @@ declare global {
 }
 
 
-// объединяя reducer-ы с помощью combineReducers,
-// мы задаём структуру нашего единственного объекта-состояния
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer
 })
-// непосредственно создаём store
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// непосредственно создаём store
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose || applyMiddleware(thunk)
+
 export const store = createStore(rootReducer, composeEnhancers());
 
-// определить автоматически тип всего объекта состояния
+
 export type AppRootStateType = ReturnType<typeof rootReducer>
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+
+type AppDispatchType = ThunkDispatch<AppRootStateType, any, AnyAction>
+export const AppDispatch = () => useDispatch<AppDispatchType>()
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
 // @ts-ignore
 window.store = store

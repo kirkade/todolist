@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {ModelType} from "../stories/todolists-api.stories";
 
 
 const instance = axios.create({
@@ -41,16 +42,16 @@ export const todolistAPI = {
 
     createTask(todolistId: string, title: string) {
         return instance
-            .post(`todo-lists/${todolistId}/tasks`,{title})
+            .post<ResponseType<TaskTypeApi>>(`todo-lists/${todolistId}/tasks`, {title})
     },
 
-    updateTaskTitle(todolistId: string, title: string, taskId:string) {
+    updateTask(todolistId: string, taskId: string, model: ModelType) {
         return instance
-            .put(`todo-lists/${todolistId}/tasks/${taskId}`, {title})
-
+            .put(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
 
-    deleteTask(todolistId:string, taskId: string) {
+
+    deleteTask(todolistId: string, taskId: string) {
         return instance
             .delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     }
@@ -70,3 +71,16 @@ export type ResponseType<T = {}> = {
     data: T
 }
 
+export type TaskTypeApi = {
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: Date
+    deadline: Date
+    id: string
+    todoListId: string
+    order: number
+    addedDate: Date
+}
