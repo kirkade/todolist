@@ -8,7 +8,7 @@ export default {
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistAPI.getTodolist()
+        todolistAPI.getTodolists()
             .then((res) => {
                 setState(res.data)
             })
@@ -87,8 +87,8 @@ export const UpdateTask = () => {
         const completed = false
         const status = 0
         const priority = 1
-        const startDate = new Date
-        const deadline = new Date
+        const startDate = new Date()
+        const deadline = new Date()
 
         todolistAPI.updateTask(todolistId,taskId,{
             title,

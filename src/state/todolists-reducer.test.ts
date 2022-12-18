@@ -1,17 +1,17 @@
 import {v1} from "uuid";
-import {FilterValueType, TodoListType} from "../App";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistTitleAC, FilterValueType,
     RemoveTodolistAC,
-    todolistsReducer
+    todolistsReducer,
 } from "./todolists-reducer";
+import {TodolistType} from "../api/todolist-api";
 
 //DATA
 let todolistId1: string
 let todolistId2: string
-let startState: Array<TodoListType>
+let startState: Array<TodolistType>
 
 beforeEach(() => {
     //DATA
@@ -19,8 +19,8 @@ beforeEach(() => {
     todolistId2 = v1()
 
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'}
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: new Date(), order: 0},
+        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: new Date(), order: 0}
     ]
 })
 
@@ -40,8 +40,8 @@ test('todolist should be added', () => {
     let newTodolistTitle = 'New Todolist'
 
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'}
+        {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: new Date(), order: 0},
+        {id: todolistId2, title: 'What to buy', filter: 'all', addedDate: new Date(), order: 0}
     ]
 
     //ACTION

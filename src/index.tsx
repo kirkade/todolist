@@ -4,7 +4,7 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import {Provider} from 'react-redux';
 import {store} from "./state/store";
 import {createRoot} from "react-dom/client";
-import AppWithRedux from "./AppWithRedux";
+import App from "./App";
 
 
 const theme = createTheme({
@@ -22,7 +22,7 @@ const root = createRoot(container)
 root.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <AppWithRedux/>
+            <App/>
         </ThemeProvider>
     </Provider>
 );

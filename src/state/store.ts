@@ -17,9 +17,7 @@ const rootReducer = combineReducers({
     todolists: todolistsReducer
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose || applyMiddleware(thunk)
-
-export const store = createStore(rootReducer, composeEnhancers());
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

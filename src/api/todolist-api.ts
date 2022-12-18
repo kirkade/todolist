@@ -29,7 +29,7 @@ export const todolistAPI = {
 
     },
 
-    getTodolist() {
+    getTodolists() {
         return instance
             .get<TodolistType[]>(`todo-lists`)
 
@@ -57,11 +57,12 @@ export const todolistAPI = {
     }
 }
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     addedDate: Date
     order: number
     title: string
+    filter?:string
 }
 
 export type ResponseType<T = {}> = {
