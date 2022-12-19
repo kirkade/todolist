@@ -1,5 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+
 import {ModelType} from "../stories/todolists-api.stories";
+import {TaskType} from "../components/Todolist/Todolist";
 
 
 const instance = axios.create({
@@ -42,7 +44,7 @@ export const todolistAPI = {
 
     createTask(todolistId: string, title: string) {
         return instance
-            .post<ResponseType<TaskTypeApi>>(`todo-lists/${todolistId}/tasks`, {title})
+            .post<{ title: string }, AxiosResponse<ResponseType<{ item: TaskType }>>>(`todo-lists/${todolistId}/tasks`, {title})
     },
 
     updateTask(todolistId: string, taskId: string, model: ModelType) {
@@ -84,4 +86,11 @@ export type TaskTypeApi = {
     todoListId: string
     order: number
     addedDate: Date
+}
+
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
 }

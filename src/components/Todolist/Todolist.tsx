@@ -7,18 +7,27 @@ import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} f
 import {Delete, HighlightOff} from "@mui/icons-material";
 import {useSelector} from "react-redux";
 import {AppDispatch, AppRootStateType} from "../../state/store";
-import {addTaskAC, changeStatusAC, changeTitleAC, fetchTasksThunk, RemoveTasksAC} from "../../state/tasks-reducer";
+import {addTaskTC, changeTitleAC, fetchTasksThunk, removeTaskTC, updateTaskStatusTC} from "../../state/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, RemoveTodolistAC,} from "../../state/todolists-reducer";
-import {TodolistType} from "../../api/todolist-api";
+import {TaskStatuses, TodolistType} from "../../api/todolist-api";
 
 export type TodolistPropsType = {
     todolist: TodolistType,
 }
 
+
 export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean,
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority:number
+    startDate: Date
+    deadline: Date
+    id: string
+    todoListId: string
+    order: number
+    addedDate: Date
 }
 
 export const Todolist: FC<TodolistPropsType> = ({todolist}) => {
@@ -34,31 +43,31 @@ export const Todolist: FC<TodolistPropsType> = ({todolist}) => {
     const dispatch = AppDispatch()
 
     if (filter === 'active') {
-        tasks = tasks.filter(t => !t.isDone)
+        tasks = tasks.filter(t => !t.completed)
     }
 
     if (filter === 'completed') {
-        tasks = tasks.filter(t => t.isDone)
+        tasks = tasks.filter(t => t.completed)
     }
 
     const tasksMap = tasks.map(task => {
 
         const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-
-            let newIsDone = event.currentTarget.checked
-            dispatch(changeStatusAC(task.id, newIsDone, id))
+            let newIsDoneValue = event.currentTarget.checked
+            console.log(newIsDoneValue)
+            dispatch(updateTaskStatusTC(task.id, id,newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New))
         }
-        const onClickHandler = () => dispatch(RemoveTasksAC(task.id, id))
+        const onClickHandler = () => dispatch(removeTaskTC(task.id, id))
         const changeTaskTitle = (title: string) => {dispatch(changeTitleAC(task.id, title, id))}
 
         return (
             <ListItem
                 key={task.id}
-                className={task.isDone ? 'isDone' : ''}
+                className={task.status === TaskStatuses.Completed ? 'isDone' : ''}
                 style={{padding: '0px', justifyContent: 'space-between'}}
             >
                 <Checkbox
-                    checked={task.isDone}
+                    checked={task.status === TaskStatuses.Completed}
                     onChange={onChangeHandler}
                 />
 
@@ -73,7 +82,7 @@ export const Todolist: FC<TodolistPropsType> = ({todolist}) => {
     const onCompletedClickHandler = () => {dispatch(changeTodolistFilterAC('completed', id))}
 
     const removeTodolist = () => {dispatch(RemoveTodolistAC(id))}
-    const addTask = (title: string) => {dispatch(addTaskAC(title, id))}
+    const addTask = (title: string) => {dispatch(addTaskTC(title, id))}
     const changeTodolistTitle = (title: string) => {dispatch(changeTodolistTitleAC(title, id))}
 
     return (

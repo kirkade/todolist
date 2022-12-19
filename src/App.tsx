@@ -4,7 +4,7 @@ import './App.css'
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {addTodolistAC, fetchTodolistThunk} from "./state/todolists-reducer";
+import {addTodolistAC, fetchTodolistTC} from "./state/todolists-reducer";
 
 import {AppDispatch, useAppSelector} from "./state/store";
 import {Todolist} from "./components/Todolist/Todolist";
@@ -20,7 +20,7 @@ function App() {
     }
 
     useEffect(() => {
-        dispatch(fetchTodolistThunk())
+        dispatch(fetchTodolistTC())
     }, [])
 
     const todolistComponents = todolists.map(tl => {
