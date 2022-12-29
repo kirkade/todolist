@@ -3,6 +3,7 @@ import { todolistsReducer } from './todolists-reducer'
 import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {authReducer} from "../components/Login/auth-reducer";
 
 
 declare global {
@@ -14,7 +15,8 @@ declare global {
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    auth: authReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
